@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Osama Yousef — Senior Backend Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #16161f;
+    --surface: #1c1c28;
+    --surface2: #222233;
+    --accent: #00e5a0;
+    --accent2: #0088ff;
+    --accent3: #7c3aed;
+    --text: #f5f5fa;
+    --text2: #b8b8d0;
+    --text3: #777799;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(0,229,160,0.2);
+    --mono: 'DM Mono', monospace;
+    --display: 'Syne', sans-serif;
+    --body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 3rem;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: var(--body);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,229,160,0.06) 0%, transparent 70%);
+    top: 50%; left: 60%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 0.5px solid var(--border2);
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    font-family: var(--body);
+    font-weight: 600;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 .line2 { color: var(--accent); }
+  h1 .line3 { color: var(--text2); font-weight: 400; font-size: 0.55em; display: block; margin-top: 0.3em; letter-spacing: -0.02em; }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--text2);
+    max-width: 540px;
+    margin-bottom: 3rem;
+    line-height: 1.85;
+    font-family: var(--body);
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.75rem 1.75rem;
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: 500;
+  }
+
+  .btn-primary:hover { background: #00ffb3; transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 0.5px solid var(--border2);
+  }
+
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 0.5px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .stat-num {
+    font-family: var(--display);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text2);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    font-family: var(--body);
+    font-weight: 500;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    font-family: var(--body);
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+  }
+
+  .about-text p {
+    color: var(--text2);
+    margin-bottom: 1.1rem;
+    font-size: 15px;
+    line-height: 1.9;
+    font-family: var(--body);
+    font-weight: 300;
+  }
+
+  .about-text p strong { color: var(--text); font-weight: 600; }
+
+  .info-list { list-style: none; }
+  .info-list li {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 14px;
+    font-family: var(--body);
+  }
+
+  .info-list li:last-child { border-bottom: none; }
+  .info-key { color: var(--text2); min-width: 90px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding-top: 2px; font-weight: 600; font-family: var(--body); }
+  .info-val { color: var(--text); font-weight: 400; }
+  .info-val a { color: var(--accent); text-decoration: none; }
+  .info-val a:hover { text-decoration: underline; }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .skill-group:hover { border-color: var(--border2); }
+
+  .skill-group-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--body);
+    font-weight: 700;
+  }
+
+  .skill-group-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border2);
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    color: var(--text2);
+    background: var(--bg3);
+    transition: all 0.2s;
+    font-family: var(--body);
+    font-weight: 500;
+  }
+
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+  .tag.primary { border-color: rgba(0,229,160,0.3); color: var(--accent); background: rgba(0,229,160,0.05); }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { position: relative; }
+
+  .exp-list::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0.5px;
+    background: var(--border);
+  }
+
+  .exp-item {
+    padding: 0 0 3rem 2.5rem;
+    position: relative;
+  }
+
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 6px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent);
+    background: var(--bg);
+  }
+
+  .exp-period {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-family: var(--body);
+    font-weight: 600;
+  }
+
+  .exp-role {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+
+  .exp-company {
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 1rem;
+    font-family: var(--body);
+    font-weight: 400;
+  }
+
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 14px;
+    color: var(--text2);
+    padding: 0.45rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.75;
+    font-family: var(--body);
+    font-weight: 300;
+  }
+
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 11px;
+    top: 7px;
+  }
+
+  .metric {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 1.75rem;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .project-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-name {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .project-bullets { list-style: none; margin-bottom: 1rem; }
+  .project-bullets li {
+    font-size: 13px;
+    color: var(--text2);
+    padding: 0.35rem 0;
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.7;
+    font-family: var(--body);
+    font-weight: 300;
+  }
+
+  .project-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent2); font-size: 10px; top: 6px; }
+
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+  .project-tag {
+    font-size: 11px;
+    padding: 3px 9px;
+    border: 0.5px solid rgba(0,136,255,0.3);
+    border-radius: 2px;
+    color: var(--accent2);
+    background: rgba(0,136,255,0.05);
+    letter-spacing: 0.04em;
+    font-family: var(--body);
+    font-weight: 500;
+  }
+
+  /* ── EDUCATION & CERTS ── */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .edu-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+  }
+
+  .edu-degree {
+    font-family: var(--display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .edu-school { font-size: 13px; color: var(--accent); margin-bottom: 0.5rem; font-family: var(--body); font-weight: 500; }
+  .edu-year { font-size: 11px; color: var(--text2); margin-bottom: 1rem; font-family: var(--body); font-weight: 400; }
+  .edu-notes { font-size: 13px; color: var(--text2); line-height: 1.75; font-family: var(--body); font-weight: 300; }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-item {
+    background: var(--bg3);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    font-size: 13px;
+    color: var(--text2);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+    font-family: var(--body);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .cert-item:hover { border-color: var(--border2); }
+  .cert-icon { color: var(--accent); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  @media (max-width: 700px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  .contact-text {
+    font-family: var(--display);
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .contact-text span { color: var(--accent); }
+
+  .contact-sub { font-size: 14px; color: var(--text2); line-height: 1.85; font-family: var(--body); font-weight: 300; }
+
+  .contact-links { list-style: none; }
+  .contact-links li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 14px;
+    font-family: var(--body);
+    font-weight: 400;
+  }
+
+  .contact-links li:last-child { border-bottom: none; }
+
+  .contact-links a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-links a:hover { color: var(--accent); }
+
+  .contact-icon {
+    width: 36px; height: 36px;
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-family: var(--body);
+    font-weight: 600;
+    flex-shrink: 0;
+    color: var(--accent);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text2);
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    font-family: var(--body);
+    font-weight: 400;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 2px; }
+
+  /* ── HIGHLIGHT ── */
+  ::selection { background: rgba(0,229,160,0.2); color: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">OY<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Available for senior roles — remote friendly</div>
+    <h1>
+      Osama<br>
+      <span class="line2">Yousef</span>
+      <span class="line3">Senior Backend Engineer · Go & Python · Data Pipelines</span>
+    </h1>
+    <p class="hero-desc">
+      I build the infrastructure that makes data move — fast, clean, and at scale.
+      Specializing in end-to-end data pipelines, microservices architecture, and
+      cloud-native systems on GCP & AWS.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in touch →</a>
+      <a href="#projects" class="btn btn-outline">View projects</a>
+      <a href="https://www.linkedin.com/in/osamayousefabuoura" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years experience</div>
+      </div>
+      <div>
+        <div class="stat-num">1M+</div>
+        <div class="stat-label">Monthly requests handled</div>
+      </div>
+      <div>
+        <div class="stat-num">30%</div>
+        <div class="stat-label">Data retrieval boost</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Crypto/NFT platforms</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header fade-up">
+    <span class="section-num">01</span>
+    <h2>About</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid fade-up">
+    <div class="about-text">
+      <p>
+        Senior Backend Engineer with <strong>5+ years of experience</strong> specializing in
+        Golang and Python for scalable backend systems and data pipelines. Currently at
+        <strong>Optimum Partners — Jordan</strong>, where I architect the infrastructure
+        behind crypto and NFT data platforms processing millions of records.
+      </p>
+      <p>
+        Expert in designing <strong>microservices</strong>, optimizing high-traffic applications,
+        and leveraging cloud-native solutions on <strong>GCP and AWS</strong>. I bring a rare
+        combination of backend engineering and data engineering skills — letting me own an
+        entire data product from raw API ingestion to production-ready endpoints.
+      </p>
+      <p>
+        Passionate about <strong>mentoring engineers</strong>, contributing to open-source,
+        and exploring the frontiers of AI and blockchain technology.
+      </p>
+    </div>
+    <ul class="info-list">
+      <li><span class="info-key">Location</span><span class="info-val">Zarqa, Jordan</span></li>
+      <li><span class="info-key">Email</span><span class="info-val"><a href="mailto:osama.yousef.abuoura@hotmail.com">osama.yousef.abuoura@hotmail.com</a></span></li>
+      <li><span class="info-key">Phone</span><span class="info-val"><a href="tel:+962785621318">+962 785 621 318</a></span></li>
+      <li><span class="info-key">LinkedIn</span><span class="info-val"><a href="https://www.linkedin.com/in/osamayousefabuoura" target="_blank">osamayousefabuoura ↗</a></span></li>
+      <li><span class="info-key">GitHub</span><span class="info-val"><a href="https://github.com" target="_blank">github.com ↗</a></span></li>
+      <li><span class="info-key">Languages</span><span class="info-val">Arabic (Native) · English (Professional)</span></li>
+      <li><span class="info-key">Interests</span><span class="info-val">AI · Blockchain · Open Source · Mentoring</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="border-top: 0.5px solid var(--border); max-width:none; background: var(--bg2);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header fade-up">
+      <span class="section-num">02</span>
+      <h2>Technical Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid fade-up">
+      <div class="skill-group">
+        <div class="skill-group-label">Languages</div>
+        <div class="skill-tags">
+          <span class="tag primary">Golang</span>
+          <span class="tag primary">Python</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Backend & Frameworks</div>
+        <div class="skill-tags">
+          <span class="tag primary">FastAPI</span>
+          <span class="tag">Flask</span>
+          <span class="tag">Django</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Microservices</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Cloud & Data</div>
+        <div class="skill-tags">
+          <span class="tag primary">GCP</span>
+          <span class="tag primary">AWS</span>
+          <span class="tag">BigQuery</span>
+          <span class="tag">Cloud Scheduler</span>
+          <span class="tag">AWS Step Functions</span>
+          <span class="tag">Apache Beam</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Databases</div>
+        <div class="skill-tags">
+          <span class="tag primary">PostgreSQL</span>
+          <span class="tag primary">Firestore</span>
+          <span class="tag">BigQuery</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">SQLite</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">DevOps & Tools</div>
+        <div class="skill-tags">
+          <span class="tag primary">Docker</span>
+          <span class="tag">Kubernetes</span>
+          <span class="tag">CI/CD</span>
+          <span class="tag">Git</span>
+          <span class="tag">GitHub</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Specializations</div>
+        <div class="skill-tags">
+          <span class="tag primary">ETL Pipelines</span>
+          <span class="tag primary">Data Engineering</span>
+          <span class="tag">Crypto / NFT Data</span>
+          <span class="tag">PL/SQL</span>
+          <span class="tag">Web3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header fade-up">
+    <span class="section-num">03</span>
+    <h2>Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="exp-list fade-up">
+
+    <div class="exp-item">
+      <div class="exp-period">Jun 2024 – Present</div>
+      <div class="exp-role">Senior Software Engineer</div>
+      <div class="exp-company">Optimum Partners · Amman, Jordan</div>
+      <ul class="exp-bullets">
+        <li>Spearheaded development of <span class="metric">3 Crypto and NFT platforms</span>, optimizing transaction security and boosting data retrieval speeds by <span class="metric">30%</span></li>
+        <li>Lead backend architecture for crypto/NFT data platform, processing data from <span class="metric">10+ external providers</span> into a unified multi-database storage layer (BigQuery, Firestore, PostgreSQL)</li>
+        <li>Designed Go-based APIs serving real-time market data, managing over <span class="metric">1 million monthly requests</span></li>
+        <li>Mentored junior engineers on Python and Go best practices, conducting code reviews and establishing team-wide pipeline standards</li>
+        <li>Drove migration from ad-hoc scripts to fully scheduled Cloud Scheduler jobs — improving reliability and eliminating manual intervention</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Apr 2022 – Jun 2024</div>
+      <div class="exp-role">Backend Engineer (Go Developer)</div>
+      <div class="exp-company">Optimum Partners · Amman, Jordan</div>
+      <ul class="exp-bullets">
+        <li>Built Go-based data consumption layer serving cryptocurrency and NFT data from <span class="metric">5+ third-party providers</span> via clean REST APIs</li>
+        <li>Enhanced data storage with PostgreSQL, BigQuery, and Firestore, reducing retrieval times by <span class="metric">25%</span></li>
+        <li>Designed storage schemas across <span class="metric">3 database systems</span>, optimizing for time-series crypto/NFT data workloads</li>
+        <li>Engineered Cloud Scheduler jobs automating data ingestion, eliminating manual fetch processes entirely</li>
+        <li>Standardized error handling and retry logic across all scheduled pipeline jobs, improving platform reliability</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Jun 2021 – Apr 2022</div>
+      <div class="exp-role">Python Developer</div>
+      <div class="exp-company">Optimum Partners · Amman, Jordan</div>
+      <ul class="exp-bullets">
+        <li>Developed Python-based data pipelines using Apache Beam and GCP/AWS, automating end-to-end data flow from external APIs to PostgreSQL</li>
+        <li>Streamlined deployment processes using FastAPI and Flask, reducing project timelines by <span class="metric">25%</span></li>
+        <li>Improved backend performance by <span class="metric">20%</span> and reduced response times by <span class="metric">15%</span></li>
+        <li>Implemented AWS Step Functions to orchestrate multi-step CSV transformation workflows</li>
+        <li>Built reusable ETL patterns (CSV ingest → Cloud Storage → PostgreSQL) adopted across the team</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Mar 2020 – Nov 2020</div>
+      <div class="exp-role">Freelance Developer</div>
+      <div class="exp-company">Self-employed</div>
+      <ul class="exp-bullets">
+        <li>Built dynamic web applications with Flask and Django, achieving a <span class="metric">30% increase</span> in user engagement</li>
+        <li>Developed and deployed <span class="metric">3 Android apps</span>, enhancing user accessibility and functionality</li>
+        <li>Created APIs with Django and FastAPI, improving application integration by <span class="metric">40%</span></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="border-top: 0.5px solid var(--border); max-width:none; background: var(--bg2);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header fade-up">
+      <span class="section-num">04</span>
+      <h2>Key Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid fade-up">
+
+      <div class="project-card">
+        <div class="project-name">Digital Assets Platform</div>
+        <ul class="project-bullets">
+          <li>Developed APIs in Golang connecting with real-time data providers for crypto assets and NFTs, improving data integration by <strong style="color:var(--accent)">40%</strong></li>
+          <li>Designed scalable workflows with Go routines and Cloud Scheduler, achieving <strong style="color:var(--accent)">30% increase</strong> in automation efficiency</li>
+          <li>Optimized multi-database storage (Firestore, BigQuery, PostgreSQL), enhancing query performance by <strong style="color:var(--accent)">35%</strong></li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">Golang</span>
+          <span class="project-tag">Cloud Scheduler</span>
+          <span class="project-tag">BigQuery</span>
+          <span class="project-tag">Firestore</span>
+          <span class="project-tag">PostgreSQL</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Database Consistency Check Tool</div>
+        <ul class="project-bullets">
+          <li>Automated synchronization of schema files and database tables, reducing discrepancies by <strong style="color:var(--accent)">90%</strong></li>
+          <li>Designed schema validation mechanism with <strong style="color:var(--accent)">95% accuracy</strong>, streamlining manual efforts by <strong style="color:var(--accent)">80%</strong></li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">PostgreSQL</span>
+          <span class="project-tag">Automation</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Tabasheer Academy</div>
+        <ul class="project-bullets">
+          <li>Built a comprehensive e-learning platform using Flask, including dashboards for academy management and course tracking</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">Flask</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">PostgreSQL</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Tutor Online Platform</div>
+        <ul class="project-bullets">
+          <li>Created an educational site with tutor dashboards for managing courses and lectures with full backend API integration</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">Django</span>
+          <span class="project-tag">FastAPI</span>
+          <span class="project-tag">Python</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Android Applications</div>
+        <ul class="project-bullets">
+          <li><strong style="color:var(--text)">Offer Collector</strong> — Consolidated mall offers from multiple brands into a single platform</li>
+          <li><strong style="color:var(--text)">Donation App</strong> — Enabled efficient donation tracking for individuals and organizations</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">Android</span>
+          <span class="project-tag">Mobile</span>
+          <span class="project-tag">Java/Kotlin</span>
+        </div>
+      </div>
+
+      <div class="project-card" style="border: 0.5px solid rgba(0,229,160,0.25); grid-column: 1 / -1;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.75rem;flex-wrap:wrap;">
+          <div class="project-name" style="margin-bottom:0;">Manjam — Investment Platform</div>
+          <span style="font-size:10px;padding:3px 10px;border-radius:2px;background:rgba(0,229,160,0.1);color:var(--accent);border:0.5px solid rgba(0,229,160,0.3);letter-spacing:0.08em;">FEATURED PROJECT</span>
+        </div>
+        <p style="font-size:14px;color:var(--text2);margin-bottom:1rem;line-height:1.85;font-family:var(--body);font-weight:300;">
+          A full-stack investment platform built for scale and compliance — combining real-time crypto wallet management,
+          KYC identity verification, multi-channel messaging, and high-performance data retrieval across SQL and NoSQL databases.
+        </p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:1.25rem;">
+          <div style="background:var(--bg3);border-radius:4px;padding:1rem;border:0.5px solid var(--border);">
+            <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">Backend & API</div>
+            <ul class="project-bullets" style="margin-bottom:0;">
+              <li>FastAPI (Python) for core REST services and business logic</li>
+              <li>Go microservices for high-throughput data processing and wallet operations</li>
+              <li>Node.js frontend server for SSR and client-facing API layer</li>
+            </ul>
+          </div>
+          <div style="background:var(--bg3);border-radius:4px;padding:1rem;border:0.5px solid var(--border);">
+            <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent2);margin-bottom:0.6rem;">Databases</div>
+            <ul class="project-bullets" style="margin-bottom:0;">
+              <li>PostgreSQL for transactional data, user accounts, and investment records</li>
+              <li>Redis for caching, session management, and real-time rate limiting</li>
+              <li>Elasticsearch for fast full-text search and analytics queries</li>
+            </ul>
+          </div>
+          <div style="background:var(--bg3);border-radius:4px;padding:1rem;border:0.5px solid var(--border);">
+            <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent3);margin-bottom:0.6rem;">Integrations</div>
+            <ul class="project-bullets" style="margin-bottom:0;">
+              <li>Twilio for SMS notifications and multi-channel messaging</li>
+              <li>Brevo (formerly Sendinblue) for transactional email delivery</li>
+              <li>Sumsub for KYC identity verification and compliance checks</li>
+              <li>CoinStats & Circle for wallet management and live crypto data</li>
+            </ul>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">FastAPI</span>
+          <span class="project-tag">Golang</span>
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">PostgreSQL</span>
+          <span class="project-tag">Redis</span>
+          <span class="project-tag">Elasticsearch</span>
+          <span class="project-tag">Twilio</span>
+          <span class="project-tag">Brevo</span>
+          <span class="project-tag">Sumsub KYC</span>
+          <span class="project-tag">CoinStats</span>
+          <span class="project-tag">Circle</span>
+          <span class="project-tag">Crypto Wallets</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION & CERTS -->
+<section id="education">
+  <div class="section-header fade-up">
+    <span class="section-num">05</span>
+    <h2>Education & Certifications</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="edu-grid fade-up">
+    <div class="edu-card">
+      <div class="edu-degree">Bachelor's in Software Engineering</div>
+      <div class="edu-school">Zarqa University · Jordan</div>
+      <div class="edu-year">2016 – 2020</div>
+      <div class="edu-notes">
+        Focused on software development methodologies and principles.
+        Participated in team projects strengthening collaboration and
+        problem-solving skills.
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">Advanced Software Development — Full-Stack JS</div>
+      <div class="edu-school">Code Fellows · Seattle, WA</div>
+      <div class="edu-year">June 2021</div>
+      <div class="edu-notes">
+        Mastered full-stack JavaScript through immersive, hands-on projects.
+        Developed practical expertise in modern development frameworks and tools.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header fade-up" style="margin-top:2rem;">
+    <span style="font-size:11px;color:var(--text2);letter-spacing:0.1em;text-transform:uppercase;">Certifications & Training</span>
+  </div>
+  <div class="certs-grid fade-up">
+    <div class="cert-item"><span class="cert-icon">◆</span>Google Cloud Associate Engineer Path</div>
+    <div class="cert-item"><span class="cert-icon">◆</span>Advanced Golang Programming</div>
+    <div class="cert-item"><span class="cert-icon">◆</span>1 Million Arab Coders — Python Bootcamp</div>
+    <div class="cert-item"><span class="cert-icon">◆</span>CCNA — Cisco Certified Network Associate</div>
+    <div class="cert-item"><span class="cert-icon">◆</span>CompTIA A+ Certification</div>
+    <div class="cert-item"><span class="cert-icon">◆</span>Arduino Development</div>
+    <div class="cert-item"><span class="cert-icon">◆</span>Graphic Design Basics</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="border-top: 0.5px solid var(--border); max-width:none; background: var(--bg2);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header fade-up">
+      <span class="section-num">06</span>
+      <h2>Contact</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid fade-up">
+      <div>
+        <div class="contact-text">Let's build<br>something <span>great</span><br>together.</div>
+        <p class="contact-sub">
+          Open to senior backend engineering roles, data engineering
+          positions, and remote opportunities globally. Response within
+          24 hours.
+        </p>
+      </div>
+      <ul class="contact-links">
+        <li>
+          <div class="contact-icon">@</div>
+          <div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:2px;font-family:"Plus Jakarta Sans",sans-serif;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Email</div>
+            <a href="mailto:osama.yousef.abuoura@hotmail.com">osama.yousef.abuoura@hotmail.com</a>
+          </div>
+        </li>
+        <li>
+          <div class="contact-icon">in</div>
+          <div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:2px;font-family:"Plus Jakarta Sans",sans-serif;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">LinkedIn</div>
+            <a href="https://www.linkedin.com/in/osamayousefabuoura" target="_blank">linkedin.com/in/osamayousefabuoura ↗</a>
+          </div>
+        </li>
+        <li>
+          <div class="contact-icon">&lt;/&gt;</div>
+          <div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:2px;font-family:"Plus Jakarta Sans",sans-serif;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">GitHub</div>
+            <a href="https://github.com" target="_blank">github.com ↗</a>
+          </div>
+        </li>
+        <li>
+          <div class="contact-icon">☏</div>
+          <div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:2px;font-family:"Plus Jakarta Sans",sans-serif;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Phone / WhatsApp</div>
+            <a href="tel:+962785621318">+962 785 621 318</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Osama Yousef · Senior Backend Engineer</span>
+  <span style="color: var(--accent);">Go · Python · GCP · AWS · BigQuery</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
